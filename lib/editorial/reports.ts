@@ -1,6 +1,15 @@
 export type Channels = Partial<Record<"Instagram" | "Medium" | "LinkedIn", string>>
 export const socialProfiles: Channels = {}
 
+export interface ReportFigureData {
+  src: string
+  alt: string
+  width: number
+  height: number
+  caption?: string
+  credit?: string
+}
+
 export interface Report {
   slug: string
   title: string
@@ -8,7 +17,7 @@ export interface Report {
   summary: string
   category: string
   lead?: string
-  body: { heading: string; paragraphs: string[] }[]
+  body: { heading: string; paragraphs: (string | ReportFigureData)[] }[]
   sources: { title: string; url: string }[]
   status: "preview" | "published"
   publishedAt?: string
@@ -34,6 +43,14 @@ export const featuredReport: Report = {
       "heading": "The Fed’s warning",
       "paragraphs": [
         "On November 16, Federal Reserve Governor Michael Barr described a risk for deposit-taking banks. Software monitoring rates or signs of distress could act on a customer’s standing instructions as soon as conditions change. If many agents react to the same signal, deposits could leave within minutes. Barr presented that speed as a possible outcome. His speech did not document an agent-driven run. [1]",
+        {
+          "src": "/fwd-public/editorial/bank-run-desktop.png",
+          "alt": "Silver and blue payment routes converge on a black circuit grid.",
+          "width": 641,
+          "height": 328,
+          "caption": "Conceptual illustration of payment instructions converging. If many agents act at once, banks could have less time to verify permissions before funds move.",
+          "credit": "Illustration by FWD"
+        },
         "Consider two customers with identical balances. One has to see the news, open an app, and decide where to move the money. The other made that decision last month when setting a rule. For the second account, a bank’s window to intervene depends on the time between the rule firing and the payment becoming final."
       ]
     },

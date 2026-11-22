@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ReportFigure } from "../report-figure"
 import { CopyReportLink } from "../copy-report-link"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -35,7 +36,9 @@ export default async function ReportPage(props: Props) {
         <ol>{report.body.map(section => <li key={section.heading}>{section.heading}</li>)}</ol>
       </section>
     ) : report.body.map(section => <section key={section.heading}><h2>{section.heading}</h2>
-      {section.paragraphs.map((p,i) => <p key={i}>{p}</p>)}</section>)}
+      {section.paragraphs.map((block, index) => typeof block === "string"
+        ? <p key={index}>{block}</p>
+        : <ReportFigure key={index} figure={block} />)}</section>)}
     {!preview && report.sources.length > 0 && <section><h2>Sources</h2><ol>{report.sources.map(source =>
       <li key={source.url}><a href={source.url}>{source.title}</a></li>)}</ol></section>}
     {!preview && Object.entries(report.channels).map(([channel,url]) => <a key={channel} href={url}>{channel}</a>)}
