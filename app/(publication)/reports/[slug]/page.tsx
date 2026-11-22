@@ -25,8 +25,9 @@ export default async function ReportPage(props: Props) {
   const preview = report.status === "preview"
   return <main id="content" className="article"><article>
     <div className="category">{report.category}{preview && <span> / Preview</span>}</div>
-    <h1>{report.title}</h1><p className="subtitle">{report.lead ?? report.subtitle}</p>
+    <h1>{report.title}</h1><p className="subtitle">{report.subtitle}</p>
     {!preview && report.publishedAt && <time dateTime={report.publishedAt}>{report.publishedAt}</time>}
+    {!preview && report.lead && <p className="report-lead">{report.lead}</p>}
     {preview && <p className="notice">This report is in preview. The full text and sources will appear here after editorial review.</p>}
     {preview ? (
       <section className="preview-outline" aria-labelledby="outline-title">
