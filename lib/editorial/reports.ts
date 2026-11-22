@@ -70,7 +70,51 @@ export const featuredReport: Report = {
   imageAlt: "Silver payment routes and blue highlighted paths converge at a single node on a black circuit grid.",
   channels: {},
 }
-export const reports: Report[] = [featuredReport]
+const workReport: Report = {
+  "slug": "ai-support-resolution",
+  "title": "Which support agents gain the most from an AI assistant?",
+  "subtitle": "A customer-support study measured a 15% average gain in issues resolved per hour. The gains varied substantially across workers.",
+  "summary": "A customer-support study measured a 15% average gain in issues resolved per hour. The gains varied substantially across workers.",
+  "category": "Work",
+  "lead": "A support director deciding who gets the next seat license has a better question than how quickly an assistant writes. How many customer problems does an agent actually close in an hour, and whose performance changes?",
+  "body": [
+    {
+      "heading": "Count the resolution",
+      "paragraphs": [
+        "Erik Brynjolfsson, Danielle Li, and Lindsey Raymond studied the rollout of an AI assistant to customer support workers. In their published analysis, agents with access resolved about 15% more issues per hour on average. Researchers traced the increase to shorter chats, more chats handled per hour, and a small improvement in the share resolved. [1]",
+        "Those measures lead to different buying decisions. A system that only shortens conversations could leave another shift to finish the work. Counting resolutions brings the unit of measurement closer to what the customer came for."
+      ]
+    },
+    {
+      "heading": "Look beyond the average",
+      "paragraphs": [
+        "The gains varied by worker, with less experienced and lower-performing agents benefiting most. One interpretation is that a suggestion can put a useful response within reach of a newcomer who has yet to encounter that problem. The same suggestion can offer little to a colleague who already knows the answer. [1]",
+        "For a buyer, the implication is to test where the team actually needs help. A pilot staffed exclusively by senior volunteers could miss a benefit to new hires. A trial restricted to onboarding could overstate the return on assigning a license to everyone."
+      ]
+    },
+    {
+      "heading": "Before buying the next seat",
+      "paragraphs": [
+        "Choose comparable queues and record tenure, case type, resolved cases per staffed hour, and repeat contacts over a stated follow-up period. Include the supervisor time spent correcting replies. A change in those numbers helps distinguish a faster first answer from a customer problem that stays solved.",
+        "The study measured performance in a particular workplace. A team making a staffing decision still needs its own demand forecast, quality checks, and evidence about which cases the assistant can handle."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "Brynjolfsson, Li, and Raymond, “Generative AI at Work,” Quarterly Journal of Economics, May 2025",
+      "url": "https://doi.org/10.1093/qje/qjae044"
+    }
+  ],
+  "status": "published",
+  "publishedAt": "2026-11-22",
+  "shareImage": "/editorial/fold-email.png",
+  "shareImageAlt": "FWD Fold wordmark",
+  "imageAlt": "FWD Fold wordmark",
+  "channels": {}
+}
+
+export const reports: Report[] = [workReport, featuredReport]
 export const reportPath = (report: Report) => "/reports/" + report.slug
 export function publishedReports(collection = reports) {
   return collection.filter(report => report.status === "published").sort((a, b) =>
