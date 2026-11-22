@@ -114,7 +114,55 @@ const workReport: Report = {
   "channels": {}
 }
 
-export const reports: Report[] = [workReport, featuredReport]
+const productReport: Report = {
+  "slug": "ai-suggestion-retention",
+  "title": "What happens after a user accepts an AI suggestion?",
+  "subtitle": "Follow accepted AI suggestions through revision and review to see what reaches the customer.",
+  "summary": "An acceptance click tells a product team that a suggestion entered the workflow. Watching what reaches the customer shows whether it saved work, created work, or left an error behind.",
+  "category": "Product",
+  "lead": "An acceptance click tells a product team that a suggestion entered the workflow. Watching what reaches the customer shows whether it saved work, created work, or left an error behind.",
+  "body": [
+    {
+      "heading": "The click and the finished draft",
+      "paragraphs": [
+        "Imagine a support agent accepts a suggested reply because the greeting and explanation are useful. Before sending, she corrects a delivery date the assistant inferred from an old order. The dashboard records an acceptance. The customer receives a corrected reply. The edit carries information that would disappear from an acceptance-only dashboard.",
+        "Researchers built an editor that could capture that distinction. In CoAuthor, writers requested GPT-3 suggestions, chose whether to insert them, and could then revise the text. The project recorded these editing events across 1,445 creative and argumentative writing sessions with 63 writers. Its logs let researchers trace a suggestion beyond the insertion event. These were writing exercises. A support team would need to measure what happens in its own queue. [1]"
+      ]
+    },
+    {
+      "heading": "The denominator changes after acceptance",
+      "paragraphs": [
+        "In a separate essay experiment using the CoAuthor platform, participants accepted about 70% of their queries. Model-origin characters made up roughly 35% of the finished essays. The participants were asked to query the model at least five times. The two percentages count different things: one describes choices at the point of suggestion, while the other describes the composition of the final document. Neither figure tells a team what share of accepted suggestions survived intact. [2]",
+        "Some edits matter far more than their length. Changing a delivery date could be the most important correction in a 200-word reply. A heavily rewritten suggestion might still have supplied the outline that helped the agent finish. An unchanged suggestion can still be wrong. Character retention describes what survived. Reviewing the final outcome tells the team whether that material belonged there."
+      ]
+    },
+    {
+      "heading": "What to measure before expanding the feature",
+      "paragraphs": [
+        "Pick an endpoint the user cares about. In support, that might be a sent reply and a case that stays resolved through an agreed follow-up window. Start with a consented evaluation sample and record which suggestions appeared, which were accepted, what changed before sending, and whether the case reopened. Keep abandoned drafts visible in the sample. Restrict access to raw messages and use the minimum text needed for review.",
+        "Have reviewers distinguish wording changes from factual corrections, policy corrections, and removed commitments. Then compare similar tasks with and without the feature. Track review time, final-answer quality, and repeat contacts alongside acceptance. If acceptance rises while review time also rises, inspect the edits before expanding the rollout. The decision is whether the team spends less time getting to a reliable answer."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "Mina Lee, Percy Liang, and Qian Yang, CoAuthor, CHI 2022",
+      "url": "https://www-cs.stanford.edu/~minalee/pdf/chi2022-coauthor.pdf"
+    },
+    {
+      "title": "Vishakh Padmakumar and He He, Does Writing with Language Models Reduce Content Diversity?, ICLR 2024, section 3",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/02dec8877fb7c6aa9a79f81661baca7c-Paper-Conference.pdf"
+    }
+  ],
+  "status": "published",
+  "publishedAt": "2026-11-23",
+  "shareImage": "/editorial/fold-email.png",
+  "shareImageAlt": "FWD Fold wordmark",
+  "imageAlt": "FWD Fold wordmark",
+  "channels": {}
+}
+
+export const reports: Report[] = [productReport, workReport, featuredReport]
 export const reportPath = (report: Report) => "/reports/" + report.slug
 export function publishedReports(collection = reports) {
   return collection.filter(report => report.status === "published").sort((a, b) =>
