@@ -174,3 +174,13 @@
 .newsletter-signup input {min-width:0; border:1px solid var(--line); background:var(--paper); color:var(--ink)}
 .newsletter-signup button {width:fit-content; background:var(--blue); color:#101010; cursor:pointer}
 .newsletter-signup :is(input,button):focus-visible {outline:3px solid var(--blue); outline-offset:3px}
+
+.home-newsletter {display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:24px; padding:32px; margin:20px 0 36px; background:#191d29; border:1px solid #434b63; border-left:3px solid var(--blue)}
+.home-newsletter h2 {font-size:clamp(38px,5vw,60px); line-height:1.05}
+.home-newsletter p {max-width:48ch; margin-top:10px; color:var(--muted); line-height:1.5}
+.home-newsletter-links {display:grid; justify-items:start; gap:6px}
+.publication .home-newsletter .cta {width:auto; margin:0; justify-content:space-between}
+.home-newsletter .section-destination {gap:8px; font-size:15px}
+@media(max-width:760px){
+  .home-newsletter {grid-template-columns:1fr; gap:20px; padding:22px; margin-top:12px}
+}
