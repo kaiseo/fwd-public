@@ -21,6 +21,7 @@ export default function NewsletterPage() {
       {signupAction && <form id="subscribe" className="newsletter-signup" method="post" action={signupAction}>
         <label htmlFor="newsletter-email">Email address</label>
         <input id="newsletter-email" type="email" name="email" autoComplete="email" required />
+        <input type="hidden" name="embed" value="1" />
         <button type="submit">Subscribe</button>
       </form>}
       <a href="#sample-issue">Read the sample issue ↓</a>
