@@ -168,3 +168,9 @@
 .report-figure img {display:block; width:100%; height:auto}
 .report-figure figcaption {display:grid; gap:4px; margin-top:10px; color:var(--muted); font-size:16px; line-height:1.5}
 .report-figure small {font-size:14px; line-height:1.5}
+
+.newsletter-signup {display:grid; gap:8px; max-width:340px; margin:0 0 24px; scroll-margin-top:24px}
+.newsletter-signup :is(input,button) {min-height:48px; padding:10px 12px; font:inherit}
+.newsletter-signup input {min-width:0; border:1px solid var(--line); background:var(--paper); color:var(--ink)}
+.newsletter-signup button {width:fit-content; background:var(--blue); color:#101010; cursor:pointer}
+.newsletter-signup :is(input,button):focus-visible {outline:3px solid var(--blue); outline-offset:3px}

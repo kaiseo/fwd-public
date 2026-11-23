@@ -1,3 +1,4 @@
+import { newsletterSignupAction } from "@/lib/editorial/newsletter"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -12,10 +13,16 @@ export const metadata: Metadata = {
 }
 
 export default function NewsletterPage() {
+  const signupAction = newsletterSignupAction()
   return <main id="content" className="newsletter-page">
     <div className="newsletter-intro">
       <h1>FWD Newsletter</h1>
       <p>One business decision, the evidence behind it, and a question to take back to your team.</p>
+      {signupAction && <form id="subscribe" className="newsletter-signup" method="post" action={signupAction}>
+        <label htmlFor="newsletter-email">Email address</label>
+        <input id="newsletter-email" type="email" name="email" autoComplete="email" required />
+        <button type="submit">Subscribe</button>
+      </form>}
       <a href="#sample-issue">Read the sample issue ↓</a>
     </div>
     <article id="sample-issue" aria-labelledby="issue-title" className="newsletter-issue">

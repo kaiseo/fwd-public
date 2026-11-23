@@ -1,3 +1,4 @@
+import { newsletterSignupAction } from "@/lib/editorial/newsletter"
 import Link from "next/link"
 import { ReportFigure } from "../report-figure"
 import { CopyReportLink } from "../copy-report-link"
@@ -45,6 +46,12 @@ export default async function ReportPage(props: Props) {
     {report.slug === "ai-agents-bank-run" && <aside className="related-issue">
       <span>From the newsletter</span>
       <Link href="/newsletter#sample-issue">Who can stop an AI payment? <span aria-hidden="true">→</span></Link>
+    </aside>}
+    {!preview && <aside className="related-issue">
+      <span>FWD Newsletter</span>
+      <Link href={newsletterSignupAction() ? "/newsletter#subscribe" : "/newsletter"}>
+        {newsletterSignupAction() ? "Subscribe to FWD" : "Explore the newsletter"} <span aria-hidden="true">→</span>
+      </Link>
     </aside>}
     <CopyReportLink url={new URL("/fwd-public" + reportPath(report), siteOrigin).href} />
   </article>
