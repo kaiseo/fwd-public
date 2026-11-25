@@ -36,7 +36,7 @@ export function MarketsTape() {
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
       script.textContent = JSON.stringify({
         symbols: symbols.map(symbol => ({ proName: "NASDAQ:" + symbol, title: symbol })),
-        colorTheme: "dark", isTransparent: true, displayMode: "regular", showSymbolLogo: false, locale: "en",
+        colorTheme: "dark", isTransparent: false, displayMode: "regular", showSymbolLogo: false, locale: "en",
       })
       observer = new MutationObserver(() => {
         const frame = host.querySelector("iframe")

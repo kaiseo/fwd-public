@@ -293,6 +293,7 @@
 .data-tape-switch button[aria-pressed="true"] {color:var(--blue); border-color:#434b63; background:#191d29}
 .data-tape-switch button:focus-visible {outline:2px solid var(--blue); outline-offset:2px}
 .markets-tape {min-width:0; border-bottom:1px solid var(--line); padding:6px 0 8px}
+.markets-tape .tradingview-widget-container,.markets-tape iframe {color-scheme:dark; background:#131722}
 .markets-tape iframe {display:block; max-width:100%; border:0}
 .markets-tape p,.markets-fallback {padding:8px 0; color:var(--muted); font-size:13px}
 .markets-fallback {display:flex; flex-wrap:wrap; gap:10px}
