@@ -222,8 +222,23 @@
 }
 
 .modern-intro h1 {max-width:23ch; font-size:clamp(38px,5.4vw,70px); letter-spacing:-.06em}
-.latest-card-lead {background:#1c2230; border-color:#566589}
-.latest-card-lead h3 {font-size:clamp(24px,2.6vw,33px)}
-@media(min-width:761px){
-  .latest-grid:has(> .latest-card:nth-child(3)) {grid-template-columns:minmax(0,1.45fr) repeat(2,minmax(0,1fr))}
+.feature-open {display:none}
+.modern-home .modern-intro {padding:32px 0 26px}
+.modern-home .modern-intro h1 {max-width:none; font-size:clamp(27px,3.4vw,42px); letter-spacing:-.045em}
+.modern-home .modern-intro p {margin-top:9px; font-size:16px}
+.modern-home .feature {
+  grid-template-columns:minmax(0,1.08fr) minmax(0,1fr); gap:24px; align-items:center;
+  margin-bottom:30px; padding:20px; border:1px solid #434b63; border-radius:9px; background:#171a21;
+}
+.modern-home .feature picture {display:block; min-width:0}
+.modern-home .feature img {border-radius:5px}
+.modern-home .feature-copy {padding:0; max-width:none}
+.modern-home .feature h3 {font-size:clamp(28px,4.2vw,51px); line-height:1.05; letter-spacing:-.055em; font-weight:650; margin:12px 0}
+.modern-home .feature p {line-height:1.5}
+.modern-home .feature-open {display:inline-block; margin-top:15px; color:var(--blue); font-size:14px; font-weight:600}
+.modern-home .latest-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:760px){
+  .modern-home .feature,.modern-home .latest-grid {grid-template-columns:minmax(0,1fr)}
+  .modern-home .feature {gap:15px; padding:14px; margin-bottom:24px}
+  .modern-home .feature picture {order:1}
 }

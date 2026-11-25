@@ -1,3 +1,4 @@
+import { FeaturedReport } from "./report-collection"
 import { newsletterSignupAction } from "@/lib/editorial/newsletter"
 import { GuideDirectory } from "./reader-guides"
 import type { Metadata } from "next"
@@ -11,21 +12,22 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  const published = publishedReports()
+  const published = publishedReports().filter(report => report.slug !== feature.slug)
   const signupOpen = Boolean(newsletterSignupAction())
   return <main id="content" className="modern-home">
     <section className="modern-intro">
       <h1>How AI is changing work and commerce.</h1>
       <p>Independent reporting for founders, operators, and product leaders.</p>
     </section>
-    <section className="latest-reporting" id="reports" aria-labelledby="latest-reporting-title">
+    <FeaturedReport />
+    {published.length > 0 && <section className="latest-reporting" id="reports" aria-labelledby="latest-reporting-title">
       <div className="latest-heading">
         <h2 id="latest-reporting-title">Latest reporting</h2>
         <Link href="/reports">All reports <span aria-hidden="true">↗</span></Link>
       </div>
       <div className="latest-grid">
-        {(published.length > 0 ? published : [feature]).map((report, index) => (
-          <Link className={index === 0 ? "latest-card latest-card-lead" : "latest-card"} id={report.slug === feature.slug ? "featured" : undefined}
+        {published.map((report, index) => (
+          <Link className={index === 0 ? "latest-card latest-card-lead" : "latest-card"}
             key={report.slug} href={reportPath(report)}>
             <div className="latest-meta">
               <span>{report.category}{report.status === "preview" ? " / Preview" : ""}</span>
@@ -37,7 +39,7 @@ export default function Home() {
           </Link>
         ))}
       </div>
-    </section>
+    </section>}
     <section className="home-newsletter" aria-labelledby="home-newsletter-title">
       <div>
         <h2 id="home-newsletter-title">FWD in your inbox</h2>
