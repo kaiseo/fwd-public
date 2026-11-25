@@ -315,3 +315,18 @@
 .adoption-bar {grid-column:1 / -1; height:5px; background:#e1e5ef}
 .adoption-bar > div {height:100%; background:#3455ad}
 .article .adoption-comparison p {grid-column:1 / -1; margin:0; font-size:15px; color:var(--muted)}
+
+.data-tape-header {display:flex; align-items:center; justify-content:space-between; gap:6px}
+.data-tape-tracker-link {display:inline-flex; align-items:center; min-height:44px; color:var(--blue); font:13px EditorialMono,monospace; white-space:nowrap}
+.tracker-page {padding-bottom:56px}
+.tracker-page .tracker-intro h1 {font-size:clamp(42px,6vw,72px)}
+.tracker-intro nav {display:flex; gap:18px; margin-top:10px; color:var(--blue); font-size:14px}
+.tracker-section {padding:16px 0 28px; border-top:1px solid var(--line); scroll-margin-top:18px}
+.tracker-section > p {color:var(--muted); line-height:1.5}
+.tracker-adoption-grid,.tracker-watchlist {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; padding:0; margin:16px 0 0; list-style:none}
+.tracker-adoption-grid a,.tracker-watchlist > div {display:grid; gap:8px; padding:16px; background:#171a21; border:1px solid #363d50; border-radius:6px}
+.tracker-adoption-grid strong {color:var(--blue); font:600 28px EditorialMono,monospace}
+.tracker-section .markets-tape {margin-top:14px}
+.tracker-watchlist dt {font-weight:650}
+.tracker-watchlist dd {margin:0; color:var(--muted); line-height:1.5}
+@media(max-width:620px){.tracker-adoption-grid,.tracker-watchlist {grid-template-columns:minmax(0,1fr)}}

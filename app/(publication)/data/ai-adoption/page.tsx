@@ -36,6 +36,6 @@ export default function AiAdoptionPage() {
       <p>The Census Bureau’s Business Trends and Outlook Survey asks employers about AI use in any business function over the preceding two weeks. The published estimates cover U.S. employer businesses excluding farms.</p>
       <a href={adoptionSource}>View the Census analysis and charts ↗</a>
     </section>
-    <Link className="return-link" href="/">← Back to FWD</Link>
+    <Link className="return-link" href="/data">← AI Tracker</Link>
   </main>
 }

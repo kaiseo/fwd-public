@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { AiAdoptionTape } from "./ai-adoption-tape"
 
 const symbols = ["NVDA", "AVGO", "MSFT", "AMZN", "GOOGL", "PLTR"]
 
-function MarketsTape() {
+export function MarketsTape() {
   const widget = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<"loading" | "ready" | "unavailable" | "reduced">("loading")
 
@@ -82,10 +83,10 @@ function MarketsTape() {
 export function AiDataTape() {
   const [view, setView] = useState<"adoption" | "markets">("adoption")
   return <div className="ai-data-tape">
-    <div className="data-tape-switch" role="group" aria-label="Select data tape">
+    <div className="data-tape-header"><div className="data-tape-switch" role="group" aria-label="Select data tape">
       <button type="button" aria-pressed={view === "adoption"} onClick={() => setView("adoption")}>AI Adoption</button>
       <button type="button" aria-pressed={view === "markets"} onClick={() => setView("markets")}>AI Markets</button>
-    </div>
+    </div><Link href="/data" className="data-tape-tracker-link">AI Tracker ↗</Link></div>
     {view === "adoption" ? <AiAdoptionTape /> : <MarketsTape />}
   </div>
 }
