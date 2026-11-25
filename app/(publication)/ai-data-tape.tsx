@@ -35,7 +35,7 @@ export function MarketsTape() {
       ticker.setAttribute("hide-chart", "")
       ticker.setAttribute("hide-logo", "")
       ticker.setAttribute("show-hover", "")
-      ticker.setAttribute("hover-type", "chart-performance-grid")
+      ticker.setAttribute("hover-type", "chart")
       host.append(ticker)
       if (customElements.get(tickerTag)) {
         setState("ready")

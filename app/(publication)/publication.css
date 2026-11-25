@@ -293,8 +293,17 @@
 .data-tape-switch button[aria-pressed="true"] {color:var(--blue); border-color:#434b63; background:#191d29}
 .data-tape-switch button:focus-visible {outline:2px solid var(--blue); outline-offset:2px}
 .markets-tape {min-width:0; padding:6px 0 8px}
-.markets-widget {color-scheme:dark}
+.markets-widget {
+  color-scheme:dark;
+  --tv-widget-popup-background-color:#171a21;
+  --tv-widget-accent-color:var(--blue);
+}
 .markets-widget tv-ticker-tape:not(:defined) {display:none}
+.markets-widget tv-ticker-tape::part(tv-selected-button) {
+  background:#21283a;
+  color:var(--blue);
+}
+.markets-widget tv-ticker-tape::part(tv-selected-button):hover {background:#2a354d}
 .markets-tape p,.markets-fallback {padding:8px 0; color:var(--muted); font-size:13px}
 .markets-fallback {display:flex; flex-wrap:wrap; gap:10px}
 .markets-fallback a,.markets-source {color:var(--blue); text-decoration:underline; text-underline-offset:3px}
