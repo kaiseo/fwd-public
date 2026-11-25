@@ -15,8 +15,8 @@ export default function Home() {
   const signupOpen = Boolean(newsletterSignupAction())
   return <main id="content" className="modern-home">
     <section className="modern-intro">
-      <h1>Business, after AI.</h1>
-      <p>Independent reporting on how AI changes work, business, and commerce.</p>
+      <h1>How AI is changing work and commerce.</h1>
+      <p>Independent reporting for founders, operators, and product leaders.</p>
     </section>
     <section className="latest-reporting" id="reports" aria-labelledby="latest-reporting-title">
       <div className="latest-heading">
@@ -24,8 +24,8 @@ export default function Home() {
         <Link href="/reports">All reports <span aria-hidden="true">↗</span></Link>
       </div>
       <div className="latest-grid">
-        {(published.length > 0 ? published : [feature]).map(report => (
-          <Link className="latest-card" id={report.slug === feature.slug ? "featured" : undefined}
+        {(published.length > 0 ? published : [feature]).map((report, index) => (
+          <Link className={index === 0 ? "latest-card latest-card-lead" : "latest-card"} id={report.slug === feature.slug ? "featured" : undefined}
             key={report.slug} href={reportPath(report)}>
             <div className="latest-meta">
               <span>{report.category}{report.status === "preview" ? " / Preview" : ""}</span>
@@ -33,7 +33,7 @@ export default function Home() {
             </div>
             <h3>{report.title}</h3>
             <p>{report.summary}</p>
-            <span className="latest-open">Read {report.status === "preview" ? "preview" : "report"} <span aria-hidden="true">↗</span></span>
+            <span className="latest-open">Read {report.status === "preview" ? "preview" : index === 0 ? "the latest report" : "report"} <span aria-hidden="true">↗</span></span>
           </Link>
         ))}
       </div>
