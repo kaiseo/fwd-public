@@ -1,3 +1,4 @@
+import { newsletterSignupAction } from "@/lib/editorial/newsletter"
 import { PublicationNav } from "./publication-nav"
 import { FoldWordmark } from "./fold-wordmark"
 import { featuredReport, reportPath, socialProfiles } from "@/lib/editorial/reports"
@@ -10,7 +11,8 @@ export default function PublicationLayout({ children }: { children: React.ReactN
   return <div lang="en" className="publication"><div className="paper">
     <a className="skip" href="#content">Skip to content</a>
     <header id="page-top" tabIndex={-1}><FoldWordmark />
-      <PublicationNav /></header>
+      <PublicationNav />
+      {newsletterSignupAction() && <Link className="home-header-subscribe" href="/newsletter#subscribe">Subscribe</Link>}</header>
     {children}
     <footer className="publication-footer">
       <div className="footer-signature">

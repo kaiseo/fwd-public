@@ -1,7 +1,6 @@
 import { newsletterSignupAction } from "@/lib/editorial/newsletter"
 import { GuideDirectory } from "./reader-guides"
 import type { Metadata } from "next"
-import { ReportCollection } from "./report-collection"
 import Link from "next/link"
 import { featuredReport as feature, publishedReports, reportPath, siteOrigin } from "@/lib/editorial/reports"
 
@@ -14,11 +13,31 @@ export const metadata: Metadata = {
 export default function Home() {
   const published = publishedReports()
   const signupOpen = Boolean(newsletterSignupAction())
-  return <main id="content">
-    <section className="intro"><h1>How AI is changing<br className="wide-break"/> work and commerce.</h1>
-      <div><p>{description}</p><Link className="cta" href={reportPath(published[0] ?? feature)}>Read the latest report <span aria-hidden="true">↗</span></Link></div>
+  return <main id="content" className="modern-home">
+    <section className="modern-intro">
+      <h1>Business, after AI.</h1>
+      <p>Independent reporting on how AI changes work, business, and commerce.</p>
     </section>
-    <ReportCollection />
+    <section className="latest-reporting" id="reports" aria-labelledby="latest-reporting-title">
+      <div className="latest-heading">
+        <h2 id="latest-reporting-title">Latest reporting</h2>
+        <Link href="/reports">All reports <span aria-hidden="true">↗</span></Link>
+      </div>
+      <div className="latest-grid">
+        {(published.length > 0 ? published : [feature]).map(report => (
+          <Link className="latest-card" id={report.slug === feature.slug ? "featured" : undefined}
+            key={report.slug} href={reportPath(report)}>
+            <div className="latest-meta">
+              <span>{report.category}{report.status === "preview" ? " / Preview" : ""}</span>
+              {report.publishedAt && <time dateTime={report.publishedAt}>{report.publishedAt}</time>}
+            </div>
+            <h3>{report.title}</h3>
+            <p>{report.summary}</p>
+            <span className="latest-open">Read {report.status === "preview" ? "preview" : "report"} <span aria-hidden="true">↗</span></span>
+          </Link>
+        ))}
+      </div>
+    </section>
     <section className="home-newsletter" aria-labelledby="home-newsletter-title">
       <div>
         <h2 id="home-newsletter-title">FWD in your inbox</h2>
