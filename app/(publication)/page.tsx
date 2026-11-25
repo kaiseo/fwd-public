@@ -1,3 +1,4 @@
+import { AiDataTape } from "./ai-data-tape"
 import { FeaturedReport } from "./report-collection"
 import { newsletterSignupAction } from "@/lib/editorial/newsletter"
 import { GuideDirectory } from "./reader-guides"
@@ -15,6 +16,7 @@ export default function Home() {
   const published = publishedReports().filter(report => report.slug !== feature.slug)
   const signupOpen = Boolean(newsletterSignupAction())
   return <main id="content" className="modern-home">
+    <AiDataTape />
     <section className="modern-intro">
       <h1>How AI is changing work and commerce.</h1>
       <p>Independent reporting for founders, operators, and product leaders.</p>
