@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: siteOrigin,
   title: "AI Tracker | FWD",
   description,
-  alternates: { canonical: "/fwd-public/data/" },
+  alternates: { canonical: "/data" },
 }
 
 export default function DataPage() {
@@ -37,14 +37,16 @@ export default function DataPage() {
         </li>)}
       </ul>
     </section>
-    <section id="markets" className="tracker-section" aria-labelledby="tracker-markets">
-      <div className="latest-heading"><h2 id="tracker-markets">AI Markets</h2></div>
-      <p>Prices and daily moves for six companies across chips, cloud, and enterprise software.</p>
-      <MarketsTape />
+    <section id="markets" className="tracker-section tracker-markets" aria-labelledby="tracker-markets">
+      <div className="latest-heading">
+        <h2 id="tracker-markets">AI Markets</h2>
+        <span>Quotes may be delayed</span>
+      </div>
+      <MarketsTape watchlist />
       <dl className="tracker-watchlist">
-        <div><dt>Chips</dt><dd>NVIDIA (NVDA) · Broadcom (AVGO)</dd></div>
-        <div><dt>Cloud</dt><dd>Microsoft (MSFT) · Amazon (AMZN) · Alphabet (GOOGL)</dd></div>
-        <div><dt>Enterprise software</dt><dd>Palantir (PLTR)</dd></div>
+        <div><dt>Chips</dt><dd>NVDA · AVGO</dd></div>
+        <div><dt>Cloud</dt><dd>MSFT · AMZN · GOOGL</dd></div>
+        <div><dt>Enterprise software</dt><dd>PLTR</dd></div>
       </dl>
     </section>
   </main>

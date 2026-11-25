@@ -5,9 +5,8 @@ import Link from "next/link"
 import { AiAdoptionTape } from "./ai-adoption-tape"
 
 const symbols = ["NVDA", "AVGO", "MSFT", "AMZN", "GOOGL", "PLTR"]
-const tickerTag = "tv-ticker-tape"
 
-export function MarketsTape() {
+export function MarketsTape({ watchlist = false }: { watchlist?: boolean }) {
   const widget = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<"loading" | "ready" | "unavailable" | "reduced">("loading")
 
@@ -16,13 +15,25 @@ export function MarketsTape() {
     if (!host) return
 
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const narrowScreen = window.matchMedia("(max-width: 620px)")
+    const tickerTag = watchlist ? "tv-tickers" : "tv-ticker-tape"
     let timeout: number | undefined
+
+    function fitWatchlist(ticker: HTMLElement) {
+      ticker.setAttribute("direction", narrowScreen.matches ? "vertical" : "horizontal")
+      ticker.setAttribute("item-size", narrowScreen.matches ? "compact" : "normal")
+    }
+
+    function resizeWatchlist() {
+      const ticker = host?.querySelector<HTMLElement>(tickerTag)
+      if (ticker) fitWatchlist(ticker)
+    }
 
     function loadWidget() {
       if (!host) return
       window.clearTimeout(timeout)
       host.replaceChildren()
-      if (preference.matches) {
+      if (!watchlist && preference.matches) {
         setState("reduced")
         return
       }
@@ -32,6 +43,7 @@ export function MarketsTape() {
       ticker.setAttribute("theme", "dark")
       ticker.setAttribute("transparent", "")
       ticker.setAttribute("item-size", "compact")
+      if (watchlist) fitWatchlist(ticker)
       ticker.setAttribute("hide-chart", "")
       ticker.setAttribute("hide-logo", "")
       ticker.setAttribute("show-hover", "")
@@ -44,7 +56,7 @@ export function MarketsTape() {
 
       const script = document.createElement("script")
       script.type = "module"
-      script.src = "https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"
+      script.src = `https://widgets.tradingview-widget.com/w/en/${tickerTag}.js`
       const unavailable = () => {
         if (!host.contains(ticker)) return
         window.clearTimeout(timeout)
@@ -66,13 +78,15 @@ export function MarketsTape() {
     }
 
     loadWidget()
-    preference.addEventListener("change", loadWidget)
+    if (watchlist) narrowScreen.addEventListener("change", resizeWatchlist)
+    else preference.addEventListener("change", loadWidget)
     return () => {
+      narrowScreen.removeEventListener("change", resizeWatchlist)
       preference.removeEventListener("change", loadWidget)
       window.clearTimeout(timeout)
       host.replaceChildren()
     }
-  }, [])
+  }, [watchlist])
 
   return <section className="markets-tape" aria-label="AI stock prices">
     <div ref={widget} className="markets-widget" />
@@ -81,7 +95,7 @@ export function MarketsTape() {
       {state === "unavailable" && <span>Quotes unavailable.</span>}
       {symbols.map(symbol => <a key={symbol} href={"https://www.tradingview.com/symbols/NASDAQ-" + symbol + "/"}>{symbol}</a>)}
     </div>}
-    <a className="markets-source" href="https://www.tradingview.com/">Market data by TradingView · Quotes may be delayed</a>
+    {(!watchlist || state === "unavailable") && <a className="markets-source" href="https://www.tradingview.com/">Market data by TradingView · Quotes may be delayed</a>}
   </section>
 }
 
