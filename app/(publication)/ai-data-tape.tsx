@@ -5,6 +5,7 @@ import Link from "next/link"
 import { AiAdoptionTape } from "./ai-adoption-tape"
 
 const symbols = ["NVDA", "AVGO", "MSFT", "AMZN", "GOOGL", "PLTR"]
+const tickerTag = "tv-ticker-tape"
 
 export function MarketsTape() {
   const widget = useRef<HTMLDivElement>(null)
@@ -16,47 +17,52 @@ export function MarketsTape() {
 
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
     let timeout: number | undefined
-    let observer: MutationObserver | undefined
 
     function loadWidget() {
+      if (!host) return
       window.clearTimeout(timeout)
-      observer?.disconnect()
-      host?.replaceChildren()
+      host.replaceChildren()
       if (preference.matches) {
         setState("reduced")
         return
       }
-      if (!host) return
-
       setState("loading")
-      const mount = document.createElement("div")
-      mount.className = "tradingview-widget-container__widget"
+      const ticker = document.createElement(tickerTag)
+      ticker.setAttribute("symbols", symbols.map(symbol => "NASDAQ:" + symbol).join(","))
+      ticker.setAttribute("theme", "dark")
+      ticker.setAttribute("transparent", "")
+      ticker.setAttribute("item-size", "compact")
+      ticker.setAttribute("hide-chart", "")
+      ticker.setAttribute("hide-logo", "")
+      ticker.setAttribute("show-hover", "")
+      ticker.setAttribute("hover-type", "chart-performance-grid")
+      host.append(ticker)
+      if (customElements.get(tickerTag)) {
+        setState("ready")
+        return
+      }
+
       const script = document.createElement("script")
-      script.async = true
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-      script.textContent = JSON.stringify({
-        symbols: symbols.map(symbol => ({ proName: "NASDAQ:" + symbol, title: symbol })),
-        colorTheme: "dark", isTransparent: false, displayMode: "regular", showSymbolLogo: false, locale: "en",
-      })
-      observer = new MutationObserver(() => {
-        const frame = host.querySelector("iframe")
-        if (!frame) return
-        frame.title = "AI stock prices and daily changes from TradingView"
-        frame.addEventListener("load", () => {
-          window.clearTimeout(timeout)
-          setState("ready")
-        }, { once: true })
-        observer?.disconnect()
-      })
-      observer.observe(host, { childList: true, subtree: true })
+      script.type = "module"
+      script.src = "https://widgets.tradingview-widget.com/w/en/tv-ticker-tape.js"
       const unavailable = () => {
-        observer?.disconnect()
+        if (!host.contains(ticker)) return
+        window.clearTimeout(timeout)
         host.replaceChildren()
         setState("unavailable")
       }
+      script.addEventListener("load", () => {
+        if (!host.contains(ticker)) return
+        if (!customElements.get(tickerTag)) {
+          unavailable()
+          return
+        }
+        window.clearTimeout(timeout)
+        setState("ready")
+      }, { once: true })
       script.addEventListener("error", unavailable, { once: true })
       timeout = window.setTimeout(unavailable, 12000)
-      host.append(mount, script)
+      host.append(script)
     }
 
     loadWidget()
@@ -64,13 +70,12 @@ export function MarketsTape() {
     return () => {
       preference.removeEventListener("change", loadWidget)
       window.clearTimeout(timeout)
-      observer?.disconnect()
       host.replaceChildren()
     }
   }, [])
 
   return <section className="markets-tape" aria-label="AI stock prices">
-    <div ref={widget} className="tradingview-widget-container" />
+    <div ref={widget} className="markets-widget" />
     {state === "loading" && <p role="status">Loading market prices…</p>}
     {(state === "unavailable" || state === "reduced") && <div className="markets-fallback">
       {state === "unavailable" && <span>Quotes unavailable.</span>}
